@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var selectedColor: Color = Color.red
     @State private var selectedDate = Date()
     @State private var stepperValue = 1
+    @State private var sliderValue = 50.0
     
     var body: some View {
         VStack {
@@ -27,7 +28,7 @@ struct ContentView: View {
             TextField("Enter a Name", text: $name)
                 .textFieldStyle(.roundedBorder)
             Text("Name entered: \(name)")
-
+            
             Spacer()
             Toggle("Toggle is \(toggleIsOn ? "on" : "off")", isOn: $toggleIsOn)
             Spacer()
@@ -41,6 +42,22 @@ struct ContentView: View {
             Text("Selected date is : \(selectedDate.formatted(date: .abbreviated, time: .shortened))")
             Spacer()
             Stepper("Stepper value: \(stepperValue)", value: $stepperValue, in: 1...10)
+            
+            Spacer()
+            //Slider(value: $sliderValue, in: 0...100)
+            Slider(value: $sliderValue, in: 0...100) {
+                //Accessibility Label
+            } minimumValueLabel: {
+                Image(systemName: "speaker.minus")
+                //Text("0")
+            } maximumValueLabel: {
+                Image(systemName: "speaker.plus")
+                //Text("100")
+            }
+            
+            Text("Slider value: \(Int(sliderValue))%")
+            //Text("Slider value: \(sliderValue.formatted(.number.precision(.fractionLength(1))))")
+            //Text("Slider value: \(String(format: "%.0f", sliderValue))")
             
         }
         .font(.title2)
